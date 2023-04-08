@@ -1,4 +1,4 @@
-#include "library.h"
+#include "../include/CLarity/clarity.h"
 
 #include <stdio.h>
 
