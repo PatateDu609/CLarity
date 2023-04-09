@@ -1,18 +1,13 @@
-#ifndef CLARITY_CLARITY_H
-#define CLARITY_CLARITY_H
+#ifndef CLARITY_INCLUDE_CLARITY_CLARITY_H
+#define CLARITY_INCLUDE_CLARITY_CLARITY_H
 
 #include <stdint.h>
+#include "clarity_types.h"
 
-typedef enum clarity_status_e {
-	CL_SUCCESS,
-	CL_ERROR_MEMORY,
-	CL_ERROR_INVALID_ARGUMENT,
-	CL_ERROR_FILE_NOT_FOUND,
-	CL_ERROR_LOAD_LIBRARY,
-	CL_ERROR_INVALID_FORMAT,
-	CL_ERROR_LIBRARY_NOT_LOADED,
-	CL_ERROR_UNLOAD_LIBRARY,
-} clarity_status_t;
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 /**
  * @brief Runs all tests discovered by CLarity.
@@ -94,4 +89,8 @@ clarity_status_t cl_load_tests(const char* library_path);
  */
 clarity_status_t cl_unload_tests();
 
-#endif //CLARITY_CLARITY_H
+#ifdef __cplusplus
+}
+#endif
+
+#endif //CLARITY_INCLUDE_CLARITY_CLARITY_H

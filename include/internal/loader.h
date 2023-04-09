@@ -3,6 +3,10 @@
 
 #include <CLarity/clarity.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief A struct that abstracts the actual process of loading functions from libraries.
  *
@@ -12,28 +16,6 @@
  * should be freed using `cl_cleanup_loader()` when it is no longer needed.
  */
 typedef struct clarity_loader_s clarity_loader_t;
-
-/**
- * @brief Type definition for a clarity test function.
- *
- * @details
- * A clarity test function is a function that takes no arguments and returns void.
- * This typedef is used to define the signature of test functions that are registered
- * with CLarity using the `clarity_register_tests` function.
- *
- * Example:
- * ```
- * void my_test_function(void) {
- *     // perform test logic
- * }
- *
- * int main(int argc, char **argv) {
- *     clarity_register_tests(my_test_function);
- *     cl_run_tests(argc, argv);
- * }
- * ```
- */
-typedef void (*clarity_test_fn_t)(void);
 
 /**
  * @brief Creates a new loader.
@@ -112,5 +94,9 @@ clarity_status_t cl_cleanup_loader(clarity_loader_t *loader);
  * @return A pointer to the test function, or NULL if not found.
  */
 clarity_test_fn_t cl_lookup_test(clarity_loader_t *loader, const char *name);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //CLARITY_INCLUDE_INTERNAL_LOADER_H
