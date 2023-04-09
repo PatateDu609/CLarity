@@ -29,6 +29,9 @@ void cl_free_suite(clarity_suite_t *suite) {
 }
 
 clarity_status_t cl_add_test(clarity_suite_t *suite, clarity_test_t *test) {
+	if (!test)
+		return CL_SUCCESS;
+
 	if (!suite)
 		return CL_ERROR_SUITE_NULL;
 
