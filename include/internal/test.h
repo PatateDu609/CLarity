@@ -2,6 +2,7 @@
 #define CLARITY_INCLUDE_INTERNAL_TEST_H
 
 #include <CLarity/clarity_types.h>
+#include "printer.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -47,7 +48,31 @@ struct clarity_test_s {
 	 * @note This field should be considered read-only and should not be modified by the user.
 	 */
 	void *user_data;
+
+	/**
+     * @brief The result of running the test.
+     *
+     * This field contains the result of running the test. It is updated by the `cl_run_test()` function, which populates the fields
+     * of a `clarity_test_result_t` struct based on the result of running the test. End-users can modify the `passed` field of the
+     * `clarity_test_result_t` struct returned by `cl_run_test()`, but should not modify any fields of this struct directly.
+     */
+	clarity_test_result_t result;
 };
+
+/**
+ * @brief Runs a single test.
+ *
+ * This function runs a single test and returns a `clarity_test_result_t` struct
+ * containing information about the test result, including the test name, file
+ * name, line number, whether the test passed or failed, and if the test failed,
+ * the error message.
+ *
+ * This function should only be called internally by the testing framework.
+ *
+ * @param test A pointer to the `clarity_test_t` struct representing the test to run.
+ * @return A `clarity_test_result_t` struct containing information about the test result.
+ */
+clarity_test_result_t cl_run_test(clarity_test_t *test);
 
 
 #ifdef __cplusplus

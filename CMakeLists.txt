@@ -5,12 +5,12 @@ project(CLarity VERSION 0.1)
 set(CMAKE_C_STANDARD 23)
 set(CMAKE_C_STANDARD_REQUIRED True)
 
-set(SOURCE_FILES src/clarity.c src/loader/loader.c src/test.c src/suite.c)
+set(SOURCE_FILES src/loader/loader.c src/test.c src/suite.c src/printer.c)
 if (WIN32)
 	set(SOURCE_FILES ${SOURCE_FILES} src/loader/clarity_loader_windows.c)
 endif ()
 
-set(INCLUDE_FILES include/internal/loader.h include/internal/suite.h include/CLarity/suite.h include/CLarity/test.h include/CLarity/clarity_types.h include/internal/test.h)
+set(INCLUDE_FILES include/internal/loader.h include/internal/suite.h include/CLarity/suite.h include/CLarity/test.h include/CLarity/clarity_types.h include/internal/test.h include/internal/printer.h)
 
 set(INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include)
 set(PRIVATE_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include/internal)

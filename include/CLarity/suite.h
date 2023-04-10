@@ -1,35 +1,15 @@
 #ifndef CLARITY_INCLUDE_CLARITY_SUITE_H
 #define CLARITY_INCLUDE_CLARITY_SUITE_H
 
-#include "test.h"
 #include <CLarity/clarity_types.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
+#include "test.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-/**
- * @brief Opaque struct representing a test suite.
- */
-typedef struct clarity_suite_s clarity_suite_t;
-
-/**
- * @brief Function signature for test setup function.
- *
- * @param suite The suite being run.
- * @return int 0 on success, non-zero on failure.
- */
-typedef int (*clarity_setup_fn_t)(clarity_suite_t *suite);
-
-/**
- * @brief Function signature for test teardown function.
- *
- * @param suite The suite being run.
- * @return int 0 on success, non-zero on failure.
- */
-typedef int (*clarity_teardown_fn_t)(clarity_suite_t *suite);
 
 /**
  * @brief Create a new test suite.

@@ -9,8 +9,6 @@
 extern "C" {
 #endif
 
-typedef struct clarity_test_s clarity_test_t;
-
 /**
  * @brief Create a new test case.
  *
