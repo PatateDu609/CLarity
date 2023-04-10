@@ -1,4 +1,4 @@
-add_executable(${PROJECT_NAME}_test_one_suite_one_test test_one_suite_one_test.c)
+add_executable(${PROJECT_NAME}_test_one_suite_one_test test_one_suite_one_test_pass.c)
 target_link_libraries(${PROJECT_NAME}_test_one_suite_one_test PRIVATE CLarity)
 target_include_directories(${PROJECT_NAME}_test_one_suite_one_test PRIVATE ${INCLUDE_DIRS})
 
