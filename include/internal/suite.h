@@ -4,7 +4,6 @@
 #include <CLarity/clarity.h>
 #include <CLarity/suite.h>
 #include <CLarity/clarity_types.h>
-#include "loader.h"
 
 #ifdef __cplusplus
 extern "C" {

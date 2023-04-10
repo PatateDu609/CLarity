@@ -6,7 +6,7 @@ extern "C" {
 #endif
 
 #include <stdint.h>
-
+#include <stdlib.h>
 #include <stdbool.h>
 
 /**
@@ -26,7 +26,7 @@ typedef struct clarity_test_result_s {
 	/**
 	 * @brief The line number where the test was defined.
 	 */
-	int line_number;
+	size_t line_number;
 
 	/**
 	 * @brief Indicates if the test passed or failed.
