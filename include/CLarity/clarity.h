@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 #include "clarity_types.h"
+#include "suite.h"
+#include "test.h"
 
 #ifdef __cplusplus
 extern "C" {

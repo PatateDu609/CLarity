@@ -15,7 +15,7 @@ clarity_test_t *cl_create_test(const char *name, clarity_test_fn_t fn, void *dat
 	test->user_data = data;
 	test->result.name = test->name;
 	test->result.skipped = false;
-	test->result.passed = false;
+	test->result.passed = true;
 
 	return test;
 }
