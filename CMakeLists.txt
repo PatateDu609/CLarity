@@ -31,13 +31,11 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_DIRS} PRIVATE ${PRIV
 add_subdirectory(${PROJECT_SOURCE_DIR}/test)
 
 if (WIN32)
-	add_custom_target(copy_dll ALL
+	add_custom_target(copy_shared_library ALL
 			COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:CLarity> ${CMAKE_BINARY_DIR}/test
 			COMMENT "Copying DLL to test directory"
 			DEPENDS ${PROJECT_NAME})
 endif ()
 
 get_directory_property(TEST_TARGETS DIRECTORY "${PROJECT_SOURCE_DIR}/test" DEFINITION TEST_TARGETS)
-message(NOTICE "Targets from root ${TEST_TARGETS}")
-
-add_dependencies(${TEST_TARGETS} copy_dll)
+add_dependencies(${TEST_TARGETS} copy_shared_library)

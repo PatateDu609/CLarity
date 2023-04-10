@@ -88,15 +88,13 @@ void cl_print_test_result(clarity_test_result_t *result) {
 	if (!result->skipped && !result->passed)
 		__cl_print_line_separator(CL_TEST_SEPARATOR_CHAR, CL_TEST_SEPARATOR_LENGTH);
 
-	printf("[%s] Result: ", result->name);
+	printf("[%s] ", result->name);
 	if (result->skipped) {
 		printf("SKIPPED\n");
 		return;
-	} else {
-		printf("\n");
 	}
 
-	printf("%s\n", __cl_stringify_boolean(result->passed, "PASS", "FAIL"));
+	printf("%s\n", __cl_stringify_boolean(result->passed, "=====> PASS", "FAIL"));
 	if (result->passed)
 		return;
 

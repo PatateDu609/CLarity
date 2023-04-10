@@ -4,5 +4,4 @@ target_include_directories(${PROJECT_NAME}_test_one_suite_one_test PRIVATE ${INC
 
 
 # Add all targets in a variable to expose them to the root folder.
-get_property(TARGETS_IN_DIR DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY BUILDSYSTEM_TARGETS)
-set(TEST_TARGETS ${TEST_TARGETS} ${TARGETS_IN_DIR} CACHE INTERNAL "")
+get_property(TEST_TARGETS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY BUILDSYSTEM_TARGETS)
