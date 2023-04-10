@@ -8,12 +8,7 @@
 #define CL_SUITE_SEPARATOR_LENGTH ((uint32_t)100)
 #define CL_TEST_INDENTATION_STR "\t"
 
-#define CL_SUITE_REPORT_LENGTH ((uint32_t)120)
-
-
-static const char *__cl_stringify_boolean(bool b, const char *true_str, const char *false_str) {
-	return b ? true_str : false_str;
-}
+#define CL_SUITE_REPORT_LENGTH CL_SUITE_SEPARATOR_LENGTH
 
 
 static void __cl_print_line_separator(char c, uint32_t l) {
@@ -85,21 +80,21 @@ static void __cl_write_box(const char *text, char border, size_t width, bool ena
 
 
 void cl_print_test_result(clarity_test_result_t *result) {
-	if (!result->skipped && !result->passed)
+	if (result->skipped || !result->passed)
 		__cl_print_line_separator(CL_TEST_SEPARATOR_CHAR, CL_TEST_SEPARATOR_LENGTH);
 
-	printf("[%s] Result: ", result->name);
-	if (result->skipped) {
-		printf("SKIPPED\n");
-		return;
-	}
-
-	printf("%s\n", __cl_stringify_boolean(result->passed, "PASS", "FAIL"));
-	if (result->passed)
+	const char *word;
+	if (result->skipped)
+		word = "SKIP";
+	else
+		word = result->passed ? "PASS" : "FAIL";
+	printf("[%s] =====> %s\n", result->name, word);
+	if (result->passed && !result->skipped)
 		return;
 
 	printf("%s%s\n", CL_TEST_INDENTATION_STR, result->error_message);
-	printf("%sFile: %s:%d\n", CL_TEST_INDENTATION_STR, result->file_name, result->line_number);
+	printf("%sFile: %s:%zu\n", CL_TEST_INDENTATION_STR, result->file_name, result->line_number);
+	__cl_print_line_separator(CL_TEST_SEPARATOR_CHAR, CL_TEST_SEPARATOR_LENGTH);
 }
 
 
@@ -113,7 +108,7 @@ void cl_print_suite_report(clarity_suite_report_t *report) {
 	int spacing = 5;
 
 	char text[CL_SUITE_REPORT_LENGTH];
-	snprintf(text, sizeof CL_SUITE_REPORT_LENGTH,
+	snprintf(text, sizeof text,
 			 "Total: %-*d Succeeded: %-*d Failed: %-*d Skipped: %-*d",
 			 spacing, report->total_tests,
 			 spacing, report->succeeded_tests,

@@ -3,6 +3,8 @@
 #include "suite.h"
 #include "test.h"
 
+#define CL_DEFAULT_SUITE_CAPACITY 16
+
 
 clarity_suite_t *
 cl_create_suite(const char *name, clarity_setup_fn_t setup_fn, void *setup_data, clarity_teardown_fn_t teardown_fn,
@@ -32,6 +34,7 @@ void cl_free_suite(clarity_suite_t *suite) {
 			cl_free_test(suite->tests[i]);
 		}
 	}
+	free(suite->tests);
 
 	free(suite);
 }
@@ -44,13 +47,19 @@ clarity_status_t cl_add_test(clarity_suite_t *suite, clarity_test_t *test) {
 	if (!suite)
 		return CL_ERROR_SUITE_NULL;
 
-	if (suite->test_count >= suite->test_capacity) {
-		size_t max = suite->test_capacity;
+	if (suite->test_capacity == 0) {
+		clarity_test_t **tests = calloc(CL_DEFAULT_SUITE_CAPACITY, sizeof(clarity_test_t *));
+		if (!tests)
+			return CL_ERROR_MEMORY;
+		suite->test_capacity = CL_DEFAULT_SUITE_CAPACITY;
+		suite->tests         = tests;
+	} else if (suite->test_count >= suite->test_capacity) {
+		size_t max = suite->test_capacity * 2;
 		if (max > 512)
 			max = 512;
 		size_t new_capacity = max + suite->test_capacity;
 
-		clarity_test_t **tests = realloc(suite->tests, new_capacity);
+		clarity_test_t **tests = realloc(suite->tests, new_capacity * sizeof(clarity_test_t *));
 		if (!tests)
 			return CL_ERROR_MEMORY;
 		suite->tests         = tests;
@@ -78,7 +87,7 @@ bool cl_run_suite(clarity_suite_t *suite) {
 			return false;
 	}
 
-	for (size_t            i = 0; i < suite->test_count; i++) {
+	for (size_t i = 0; i < suite->test_count; i++) {
 		clarity_test_result_t result = cl_run_test(suite->tests[i]);
 		cl_print_test_result(&result);
 
