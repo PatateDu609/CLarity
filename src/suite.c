@@ -6,23 +6,33 @@
 #define CL_DEFAULT_SUITE_CAPACITY 16
 
 
-clarity_suite_t *
-cl_create_suite(const char *name, clarity_setup_fn_t setup_fn, void *setup_data, clarity_teardown_fn_t teardown_fn,
-                void *teardown_data) {
+clarity_suite_t *cl_create_suite(const char *name) {
 	clarity_suite_t *suite = calloc(1, sizeof(*suite));
 	if (!suite)
 		return NULL;
 
 	suite->name          = name;
-	suite->setup         = setup_fn;
-	suite->setup_data    = setup_data;
-	suite->teardown      = teardown_fn;
-	suite->teardown_data = teardown_data;
+	suite->setup         = NULL;
+	suite->setup_data    = NULL;
+	suite->teardown      = NULL;
+	suite->teardown_data = NULL;
 	suite->test_capacity = 0;
 	suite->test_count    = 0;
 	suite->tests         = NULL;
 
 	return suite;
+}
+
+
+void cl_suite_register_setup(clarity_suite_t *suite, clarity_setup_fn_t fn, void *data) {
+	suite->setup      = fn;
+	suite->setup_data = data;
+}
+
+
+void cl_suite_register_teardown(clarity_suite_t *suite, clarity_teardown_fn_t fn, void *data) {
+	suite->teardown      = fn;
+	suite->teardown_data = data;
 }
 
 

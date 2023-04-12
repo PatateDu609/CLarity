@@ -81,9 +81,9 @@ void test12(clarity_test_t *t, void *data) {
 }
 
 int main() {
-	clarity_suite_t *s1 = cl_create_suite("Suite 1", NULL, NULL, NULL, NULL);
-	clarity_suite_t *s2 = cl_create_suite("Suite 2", NULL, NULL, NULL, NULL);
-	clarity_suite_t *s3 = cl_create_suite("Suite 3", NULL, NULL, NULL, NULL);
+	clarity_suite_t *s1 = cl_create_suite("Suite 1");
+	clarity_suite_t *s2 = cl_create_suite("Suite 2");
+	clarity_suite_t *s3 = cl_create_suite("Suite 3");
 
 	clarity_test_t  *t01    = cl_create_test("test 01 - should pass", test1, NULL);
 	clarity_test_t  *t02    = cl_create_test("test 02 - should pass", test2, NULL);

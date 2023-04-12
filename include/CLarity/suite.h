@@ -14,22 +14,54 @@ extern "C" {
 /**
  * @brief Create a new test suite.
  *
- * @param name the name of the suite
- * @param setup_fn the setup function for the suite
- * @param setup_data the data to pass down to the setup function
- * @param teardown_fn the teardown function for the suite
- * @param teardown_data the data to pass down to the teardown function
+ * @param name The name of the suite
  *
- * @return a pointer to the new suite, or NULL if the allocation failed
- *
- * @note The setup and teardown functions will be called once per suite
- *       before and after the suite.
+ * @return A pointer to the new suite, or NULL if the allocation failed
  *
  * @note The returned suite must be freed with `cl_free_suite` when it is no longer needed.
  *
  * @see cl_free_suite
  */
-clarity_suite_t *cl_create_suite(const char *name, clarity_setup_fn_t setup_fn, void *setup_data, clarity_teardown_fn_t teardown_fn, void *teardown_data);
+clarity_suite_t *cl_create_suite(const char *name);
+
+/**
+ * @brief Register a setup function for the current suite.
+ *
+ * @param suite the suite to register the setup function for
+ * @param fn the setup function for the suite
+ * @param data the data to pass down to the setup function
+ *
+ * @note The setup function will be called once per suite before the first test.
+ *
+ * @note Multiple setup functions can be registered for a single suite, and they will be called
+ *       in the order that they were registered.
+ *
+ * @note The registered setup functions must be cleaned up using `cl_cleanup_setup` when they are
+ *       no longer needed.
+ *
+ * @see cl_cleanup_setup
+ */
+void cl_suite_register_setup(clarity_suite_t *suite, clarity_setup_fn_t fn, void *data);
+
+/**
+ * @brief Register a teardown function for the current suite.
+ *
+ * @param suite the suite to register the teardown function for
+ * @param fn the teardown function for the suite
+ * @param data the data to pass down to the teardown function
+ *
+ * @note The teardown function will be called once per suite after the last test.
+ *
+ * @note Multiple teardown functions can be registered for a single suite, and they will be called
+ *       in the reverse order that they were registered.
+ *
+ * @note The registered teardown functions must be cleaned up using `cl_cleanup_teardown` when they are
+ *       no longer needed.
+ *
+ * @see cl_cleanup_teardown
+ */
+void cl_suite_register_teardown(clarity_suite_t *suite, clarity_teardown_fn_t fn, void *data);
+
 
 /**
  * @brief Free a test suite and its associated resources.

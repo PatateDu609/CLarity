@@ -6,7 +6,7 @@ void test_fail(clarity_test_t *t, void *data) {
 }
 
 int main() {
-	clarity_suite_t *suite = cl_create_suite("Basic suite with one test", NULL, NULL, NULL, NULL);
+	clarity_suite_t *suite = cl_create_suite("Basic suite with one test");
 	clarity_test_t *test = cl_create_test("basic test fail", test_fail, NULL);
 
 	cl_add_test(suite, test);
