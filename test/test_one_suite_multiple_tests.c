@@ -81,7 +81,7 @@ void test12(clarity_test_t *t, void *data) {
 }
 
 int main() {
-	clarity_suite_t *suite = cl_create_suite("Basic suite", NULL, NULL, NULL, NULL);
+	clarity_suite_t *suite = cl_create_suite("Basic suite");
 	clarity_test_t  *t01    = cl_create_test("test 01 - should pass", test1, NULL);
 	clarity_test_t  *t02    = cl_create_test("test 02 - should pass", test2, NULL);
 	clarity_test_t  *t03    = cl_create_test("test 03 - should fail", test3, NULL);

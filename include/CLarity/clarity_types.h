@@ -50,12 +50,6 @@ typedef void (*clarity_test_fn_t)(clarity_test_t *t, void *data);
 typedef enum clarity_status_e {
 	CL_SUCCESS, /**< The operation succeeded. */
 	CL_ERROR_MEMORY, /**< There was an error allocating memory. */
-	CL_ERROR_INVALID_ARGUMENT, /**< An argument provided to the function was invalid. */
-	CL_ERROR_FILE_NOT_FOUND, /**< A required file was not found. */
-	CL_ERROR_LOAD_LIBRARY, /**< There was an error loading a dynamic library. */
-	CL_ERROR_INVALID_FORMAT, /**< A dynamic library had an invalid format. */
-	CL_ERROR_LIBRARY_NOT_LOADED, /**< A required dynamic library was not loaded. */
-	CL_ERROR_UNLOAD_LIBRARY, /**< There was an error unloading a dynamic library. */
 	CL_ERROR_SUITE_NULL, /**< The suite was NULL, no operation was performed. */
 }            clarity_status_t;
 
@@ -70,20 +64,27 @@ typedef enum clarity_status_e {
 typedef struct clarity_suite_s clarity_suite_t;
 
 /**
+ * @brief A fixtures is a group of setup and teardown functions that are associated with a suite.
+ *        Fixtures are executed once per test, before and after the test function.
+ */
+typedef struct clarity_fixture_s clarity_fixture_t;
+
+/**
  * @brief Function signature for test setup function.
  *
- * @param suite The suite being run.
+ * @param data Custom user data.
  * @return int 0 on success, non-zero on failure.
  */
-typedef int (*clarity_setup_fn_t)(clarity_suite_t *suite);
+typedef int (*clarity_setup_fn_t)(void *data);
 
 /**
  * @brief Function signature for test teardown function.
  *
- * @param suite The suite being run.
+ * @param data Custom user data.
+ *
  * @return int 0 on success, non-zero on failure.
  */
-typedef int (*clarity_teardown_fn_t)(clarity_suite_t *suite);
+typedef int (*clarity_teardown_fn_t)(void *data);
 
 #ifdef __cplusplus
 }
